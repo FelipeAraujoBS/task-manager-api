@@ -15,5 +15,6 @@ router.post("/task/register", authMiddleware, taskControllers.registerTask);
 router.get("/dashboard", authMiddleware, (req, res) => {
   res.status(200).json({ message: `Bem-vindo, ${req.user.email}` });
 });
+router.get("/task/find", authMiddleware, taskControllers.getTask);
 
 module.exports = router;
