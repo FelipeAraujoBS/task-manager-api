@@ -16,5 +16,12 @@ router.get("/dashboard", authMiddleware, (req, res) => {
   res.status(200).json({ message: `Bem-vindo, ${req.user.email}` });
 });
 router.get("/task/find", authMiddleware, taskControllers.getTask);
+router.get("/task/find/:name", authMiddleware, taskControllers.getTaskByName);
+
+//update
+router.put("/task/update/:id", authMiddleware, taskControllers.updateTask);
+
+//delete
+router.delete("/task/delete/:id", authMiddleware, taskControllers.deleteTask);
 
 module.exports = router;
