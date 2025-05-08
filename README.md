@@ -1,6 +1,6 @@
 # 📝 Task Manager API
 
-Uma API RESTful para gerenciamento de tarefas, construída com **Node.js**, **Express** e **MongoDB (Mongoose)**. Este projeto implementa autenticação de usuários com **JWT**, incluindo registro (register) e login.
+Uma API RESTful para gerenciamento de tarefas, construída com Node.js, Express e MongoDB (Mongoose). Este projeto implementa autenticação de usuários com JWT, incluindo registro (register) e login, além do CRUD completo de tarefas.
 
 ---
 
@@ -19,25 +19,28 @@ Uma API RESTful para gerenciamento de tarefas, construída com **Node.js**, **Ex
 ## 📁 Estrutura de Pastas
 
 ```bash
+
 src/
 ├── config/
 │   └── database.js            # Conexão com MongoDB
 │
 ├── controllers/
-│   ├── loginController.js     # Lógica de login
-│   └── userControllers.js     # Lógica de registro
+│   ├── loginControllers.js    # Lógica de login
+│   ├── userControllers.js     # Lógica de registro
+│   └── taskControllers.js     # Lógica de CRUD de tarefas
 │
-├── middleware/
-│   └── authMiddleware.js      # Middleware de autenticação JWT
+├── middlewares/
+│   └── authMiddlewares.js     # Middleware de autenticação JWT
 │
 ├── models/
-│   └── user.js                # Schema do usuário (com hash da senha)
+│   ├── user.js                # Schema do usuário (com hash da senha)
+│   └── task.js                # Schema das tarefas
 │
 ├── routes/
-│   └── routes.js              # Rotas de login e registro
+│   └── routes.js              # Rotas de login, registro e tarefas
 │
 ├── index.js                   # Arquivo principal da aplicação
-└── .env                       # Variáveis de ambiente (PORT, MONGO_URI, JWT_SECRET)
+└── .env                       # Variáveis de ambiente (PORT, MONGO_URI, JWT_SECRET, JWT_EXPIRES_IN)
 
 ```
 ---
@@ -49,6 +52,18 @@ src/
   - Retorna um `token` JWT no corpo da resposta.
 - **Middleware** (`authMiddleware.js`):
   - Verifica e valida o token JWT em rotas protegidas (ainda a implementar para tarefas).
+  
+## 🗂️ Rotas de Tarefas (Requerem autenticação via JWT)
+
+-Criar nova tarefa: POST /task/register
+
+-Listar tarefas do usuário: GET /task/find
+
+-Listar tarefas do usuário por id: GET /task/find/:id
+
+-Atualizar tarefa: PUT /task/update/:id
+
+-Deletar tarefa: DELETE /task/delete/:id
 
 ---
 
@@ -79,24 +94,32 @@ src/
 npm start
 ```
     
+## Milestones 
 
 ✅ Status
 
 ✅ Registro e login com hash de senha
+
 ✅ Geração de token JWT
+
 ✅ Middleware de autenticação JWT
-🕐 CRUD de tarefas (em desenvolvimento)
-🧪 Testes
+
+✅ CRUD completo de tarefas (Create, Read, Update, Delete)
+
+🧪 Testes (Em desenvolvimento)
 
 Recomenda-se testar com Insomnia ou Postman, enviando requisições POST com JSON no corpo:
 
+```bash
 POST http://localhost:5000/register
+
 {
   "username": "Felipe",
   "email": "felipe@hotmail.com",
   "password": "123456"
 }
 
+```
 📌 Observações
   
   O token JWT deve ser salvo pelo frontend e enviado nas requisições protegidas via header:
