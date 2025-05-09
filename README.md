@@ -13,7 +13,8 @@ Uma API RESTful para gerenciamento de tarefas, construída com Node.js, Express 
 - bcryptjs
 - dotenv
 - CORS
-
+- Joi (validação de requisições)
+  
 ---
 
 ## 📁 Estrutura de Pastas
@@ -31,10 +32,17 @@ src/
 │
 ├── middlewares/
 │   └── authMiddlewares.js     # Middleware de autenticação JWT
+│   └── verifyReq.js # Validação com Joi
 │
 ├── models/
 │   ├── user.js                # Schema do usuário (com hash da senha)
 │   └── task.js                # Schema das tarefas
+│
+├── schemas/
+│ ├── schemaLogin.js # Validação de login
+│ └── schemaRegister.js # Validação de registro
+│ └── schemaTaskCreate.js # Validação da criação de Tarefas
+│ └── schemaTaskUpdate.js # Validação do update de Tarefas
 │
 ├── routes/
 │   └── routes.js              # Rotas de login, registro e tarefas
@@ -51,7 +59,7 @@ src/
 - **Login**: `POST /login`  
   - Retorna um `token` JWT no corpo da resposta.
 - **Middleware** (`authMiddleware.js`):
-  - Verifica e valida o token JWT em rotas protegidas (ainda a implementar para tarefas).
+  - Verifica e valida o token JWT em rotas protegidas.
   
 ## 🗂️ Rotas de Tarefas (Requerem autenticação via JWT)
 
@@ -106,7 +114,11 @@ npm start
 
 ✅ CRUD completo de tarefas (Create, Read, Update, Delete)
 
-🧪 Testes (Em desenvolvimento)
+✅ Validação com Joi
+
+❌ Paginação e ordenação (em planejamento)
+
+🧪 Testes com Insomnia ou Postman
 
 Recomenda-se testar com Insomnia ou Postman, enviando requisições POST com JSON no corpo:
 
