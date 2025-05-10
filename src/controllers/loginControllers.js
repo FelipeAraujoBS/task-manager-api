@@ -23,7 +23,11 @@ const loginUser = async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
 
-    res.status(200).json({ message: "Login efetuado com sucesso!", token });
+    res.status(200).json({
+      message: "Login efetuado com sucesso!",
+      token,
+      username: user.username,
+    });
   } catch (error) {
     console.error("Erro no login: ", error);
     res.status(500).json({ message: "Erro ao realizar login." });
