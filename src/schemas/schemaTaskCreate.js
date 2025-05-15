@@ -13,6 +13,14 @@ const schemaTaskCreate = joi.object({
   completed: joi.boolean().messages({
     "boolean.base": "O campo 'completed' deve ser verdadeiro ou falso",
   }),
+  category: joi.string().required().messages({
+    "any.required": "A categoria é obrigatória",
+    "string.empty": "A categoria não pode estar vazia",
+  }),
+  priority: joi.string().required().messages({
+    "any.required": "A prioridade é obrigatória",
+    "string.empty": "A prioridade não pode estar vazia",
+  }),
 });
 
 module.exports = schemaTaskCreate;

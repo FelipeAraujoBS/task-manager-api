@@ -2,7 +2,7 @@ const Task = require("../models/task");
 
 const registerTask = async (req, res) => {
   //CREATE
-  const { title, description, completed } = req.body;
+  const { title, description, completed, category, priority } = req.body;
 
   console.log(req.user);
 
@@ -10,6 +10,8 @@ const registerTask = async (req, res) => {
     const newTask = new Task({
       title,
       description,
+      category,
+      priority,
       completed: completed === "true" || completed === true ? true : false,
       user: req.user.id,
     });
@@ -61,13 +63,13 @@ const getTaskByName = async (req, res) => {
 
 const updateTask = async (req, res) => {
   //UPDATE
-  const { title, description, completed } = req.body;
+  const { title, description, category, priority, completed } = req.body;
   const { id } = req.params;
 
   try {
     const task = await Task.findOneAndUpdate(
       { _id: id, user: req.user.id },
-      { title, description, completed },
+      { title, description, category, priority, completed },
       { new: true, runValidators: true }
     );
 
