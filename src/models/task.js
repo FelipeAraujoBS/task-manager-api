@@ -15,10 +15,16 @@ const taskSchema = new mongoose.Schema(
     },
     category: {
       type: String,
+      enum: ["Trabalho", "Estudo", "Negocios", "Financas", "Outros"],
       required: true,
     },
     priority: {
       type: String,
+      enum: ["Baixa", "Media", "Alta"],
+      required: true,
+    },
+    dueDate: {
+      type: Date,
       required: true,
     },
     user: {
