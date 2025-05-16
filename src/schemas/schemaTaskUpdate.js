@@ -20,6 +20,10 @@ const schemaTaskUpdate = joi
       "any.required": "A prioridade é obrigatória",
       "string.empty": "A prioridade não pode estar vazia",
     }),
+    dueDate: joi.date().required().messages({
+      "any.required": "O prazo é obrigatório",
+      "date.base": "O prazo deve ser uma data válida",
+    }),
   })
   .min(1)
   .messages({
