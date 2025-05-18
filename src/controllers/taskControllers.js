@@ -29,7 +29,7 @@ const registerTask = async (req, res) => {
 
 const getTask = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = 5;
+  const limit = 10;
   const skip = (page - 1) * limit;
 
   try {
