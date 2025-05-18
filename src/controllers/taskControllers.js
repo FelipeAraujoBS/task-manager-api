@@ -28,20 +28,33 @@ const registerTask = async (req, res) => {
 };
 
 const getTask = async (req, res) => {
-  //READ
+  const page = parseInt(req.query.page) || 1;
+  const limit = 5;
+  const skip = (page - 1) * limit;
+
   try {
-    const tasks = await Task.find({ user: req.user.id });
+    const [tasks, totalTasks] = await Promise.all([
+      Task.find({ user: req.user.id }).skip(skip).limit(limit),
+      Task.countDocuments({ user: req.user.id }),
+    ]);
+
+    const totalPages = Math.ceil(totalTasks / limit);
 
     if (tasks.length === 0) {
-      return res
-        .status(200)
-        .json({ message: "Esse usuario não tem nenhuma tarefa registrada!" });
+      return res.status(200).json({
+        message: "Esse usuário não tem nenhuma tarefa registrada!",
+      });
     }
 
-    res.status(200).json({ Tarefas: tasks });
+    res.status(200).json({
+      page,
+      totalPages,
+      totalTasks,
+      tarefas: tasks,
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Erro ao tentar encontrar Tarefas" });
+    res.status(500).json({ message: "Erro ao tentar encontrar tarefas" });
   }
 };
 
